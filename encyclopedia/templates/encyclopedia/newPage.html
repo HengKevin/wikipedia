@@ -1,0 +1,29 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    NewPage
+{% endblock %}
+
+{% block body %}
+    {% if edit %}
+        <h1>Editing the Content</h1>
+    {% else %}
+        <h1>Creating a New Page!</h1>
+    {% endif %}
+
+    {% if existing %}
+        <div class="alert alert-danger" role="alert">
+            This content already existed.
+        </div>
+    {% endif %}
+    <br>
+    <form action="{% url 'newPage' %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        {% if edit %}
+            <input class="btn btn-primary" type="submit" value="Save">
+        {% else %}
+            <input class="btn btn-primary" type="submit">
+        {% endif %}
+    </form>
+{% endblock %}
